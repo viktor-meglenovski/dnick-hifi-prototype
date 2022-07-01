@@ -10,8 +10,12 @@
             <input type="password" id="password" name="password" class="form-control" placeholder="Лозинка" required="" oninvalid="this.setCustomValidity('Внесете ја вашата лозинка')"
                    oninput="this.setCustomValidity('')">
         </p>
+        <div th:if="${hasError==true}" class="border border-danger rounded mb-0">
+            <p th:text="${error}" class="ms-3 fw-bold text-danger text-center mt-1 mb-1" ></p>
+        </div>
         <hr/>
-        <button id="submit" type="submit" class="btn btn-lg btn-danger btn-block col-12 fw-bold" href="/myprofile">Најави се</button>
+        <button id="submit" type="submit" class="btn btn-lg btn-danger btn-block col-12 fw-bold">Најави се</button>
+
     </form>
     <a href="/register" class="btn btn-lg btn-danger btn-block text-white fw-bold col-12 border mt-2">Регистрирај се тука</a>
 </div>

@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="container border rounded mt-2 text-center pb-2">
-    <h1 class="mt-2">Добре дојде назад КОРИСНИК!</h1>
+    <h1 class="mt-2" th:text="'Добре дојде назад @' + ${user.username}">Добре дојде назад КОРИСНИК!</h1>
     <hr class="mb-1"/>
     <div class="row">
         <div class="col-6 text-center">

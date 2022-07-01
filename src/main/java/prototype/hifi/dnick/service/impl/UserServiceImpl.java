@@ -8,8 +8,11 @@ import prototype.hifi.dnick.model.User;
 import prototype.hifi.dnick.model.enumerations.Role;
 import prototype.hifi.dnick.model.exceptions.InvalidUsernameOrPasswordException;
 import prototype.hifi.dnick.model.exceptions.PasswordsDoNotMatchException;
+import prototype.hifi.dnick.model.exceptions.UserDoesNotExistException;
 import prototype.hifi.dnick.model.exceptions.UsernameAlreadyExistsException;
 import prototype.hifi.dnick.repository.UserRepository;
+import prototype.hifi.dnick.service.TestResultService;
+import prototype.hifi.dnick.service.TopicService;
 import prototype.hifi.dnick.service.UserService;
 
 @Service
@@ -17,10 +20,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TopicService topicService;
+    private final TestResultService testResultService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, TopicService topicService, TestResultService testResultService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.topicService = topicService;
+        this.testResultService = testResultService;
     }
 
     @Override
@@ -38,6 +45,17 @@ public class UserServiceImpl implements UserService {
         if(this.userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
         User user = new User(username,passwordEncoder.encode(password),name,surname,userRole);
+
+        //todo: da se stavat site temi kako nezavrseni i da se vnesat 3 rezultati kako 0 poeni
+        topicService.setAllTopicsAsNotCompletedForUser(user);
+        testResultService.initResultsForUser(user);
+
+
         return userRepository.save(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(UserDoesNotExistException::new);
     }
 }

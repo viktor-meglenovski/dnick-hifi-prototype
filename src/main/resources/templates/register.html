@@ -22,7 +22,11 @@
             <input type="text" id="surname" name="surname" class="form-control" placeholder="Презиме" required="" autofocus="" oninvalid="this.setCustomValidity('Внесете го вашето презиме')"
                    oninput="this.setCustomValidity('')">
         </p>
+        <div th:if="${hasError}" class="border border-danger rounded mb-2">
+            <p th:text="${error}" class="ms-3 fw-bold text-danger text-center mt-1 mb-1" ></p>
+        </div>
         <hr/>
+
         <button class="btn btn-lg btn-danger text-white btn-block col-12 mb-2 fw-bold" type="submit">Регистрирај се</button>
         <a href="/login" class="btn btn-lg btn-block btn-danger text-white fw-bold col-12">Веќе имате профил? Најавете се тука!</a>
     </form>

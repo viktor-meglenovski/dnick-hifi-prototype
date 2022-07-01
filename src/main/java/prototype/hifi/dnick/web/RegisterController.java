@@ -12,6 +12,9 @@ import prototype.hifi.dnick.model.exceptions.PasswordsDoNotMatchException;
 import prototype.hifi.dnick.service.AuthService;
 import prototype.hifi.dnick.service.UserService;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
@@ -29,7 +32,7 @@ public class RegisterController {
         if(error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
-        }
+        }else model.addAttribute("hasError", false);
         model.addAttribute("bodyContent","register");
         return "master-template";
     }
@@ -40,12 +43,12 @@ public class RegisterController {
                            @RequestParam String repeatedPassword,
                            @RequestParam String name,
                            @RequestParam String surname
-                           ) {
+                           ) throws UnsupportedEncodingException {
         try{
             this.userService.register(username, password, repeatedPassword, name, surname, Role.ROLE_USER);
             return "redirect:/login";
-        } catch (InvalidArgumentsException | PasswordsDoNotMatchException exception) {
-            return "redirect:/register?error=" + exception.getMessage();
+        } catch (RuntimeException exception) {
+            return "redirect:/register?error=" + URLEncoder.encode(exception.getMessage(),"UTF-8");
         }
     }
 }

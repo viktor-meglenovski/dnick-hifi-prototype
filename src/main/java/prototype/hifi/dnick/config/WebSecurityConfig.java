@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.net.URLEncoder;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
@@ -27,15 +29,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/assets/**", "/register", "/static/**","/images/**", "/h2/**").permitAll()
+                .antMatchers("/", "/home", "/assets/**", "/register", "/static/**","/images/**", "/h2/**","/login").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .failureUrl("/login?error=BadCredentials")
-                .defaultSuccessUrl("/home", true)
+                .failureUrl("/login?error="+ URLEncoder.encode("Невалидна комбинација на корисничко име и лозинка","UTF-8"))
+                .defaultSuccessUrl("/myprofile", true)
                 .and()
                 .logout()
                 .logoutUrl("/logout")

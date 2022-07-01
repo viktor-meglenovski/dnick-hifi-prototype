@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import prototype.hifi.dnick.model.User;
 import prototype.hifi.dnick.model.exceptions.InvalidUserCredentialsException;
 import prototype.hifi.dnick.service.AuthService;
@@ -22,7 +23,11 @@ public class LoginController {
     }
 
     @GetMapping
-    public String getLoginPage(Model model) {
+    public String getLoginPage(@RequestParam(required = false) String error, Model model) {
+        if(error != null && !error.isEmpty()) {
+            model.addAttribute("hasError", true);
+            model.addAttribute("error", error);
+        }else model.addAttribute("hasError", false);
         model.addAttribute("bodyContent","login");
         return "master-template";
     }
@@ -39,7 +44,8 @@ public class LoginController {
         catch (InvalidUserCredentialsException exception) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", exception.getMessage());
-            return "login";
+            model.addAttribute("bodyContent","login");
+            return "master-template";
         }
     }
 }
