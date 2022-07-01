@@ -1,0 +1,29 @@
+<div class="container col-6 border rounded mt-5">
+    <form method="post" action="/register">
+        <h2 class="text-center mt-2">Регистрација</h2>
+        <hr/>
+        <p>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Корисничко име" required="" autofocus="" oninvalid="this.setCustomValidity('Внесете корисничко име')"
+                   oninput="this.setCustomValidity('')">
+        </p>
+        <p>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Лозинка" required="" oninvalid="this.setCustomValidity('Внесете лозинка')"
+                   oninput="this.setCustomValidity('')">
+        </p>
+        <p>
+            <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control" placeholder="Потврди лозинка" required="" oninvalid="this.setCustomValidity('Повторете ја вашата лозинка')"
+                   oninput="this.setCustomValidity('')">
+        </p>
+        <p>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Име" required="" autofocus="" oninvalid="this.setCustomValidity('Внесете го вашето име')"
+                   oninput="this.setCustomValidity('')">
+        </p>
+        <p>
+            <input type="text" id="surname" name="surname" class="form-control" placeholder="Презиме" required="" autofocus="" oninvalid="this.setCustomValidity('Внесете го вашето презиме')"
+                   oninput="this.setCustomValidity('')">
+        </p>
+        <hr/>
+        <button class="btn btn-lg btn-danger text-white btn-block col-12 mb-2 fw-bold" type="submit">Регистрирај се</button>
+        <a href="/login" class="btn btn-lg btn-block btn-danger text-white fw-bold col-12">Веќе имате профил? Најавете се тука!</a>
+    </form>
+</div>

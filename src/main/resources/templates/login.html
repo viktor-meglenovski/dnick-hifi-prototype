@@ -1,0 +1,17 @@
+<div class="container col-6 border rounded mt-5 pb-3">
+    <form method="post" action="/login">
+        <h2 class="text-center mt-2">Најави се</h2>
+        <hr/>
+        <p>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Корисничко име" required="" autofocus="" oninvalid="this.setCustomValidity('Внесете го вашето корисничко име')"
+                   oninput="this.setCustomValidity('')">
+        </p>
+        <p>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Лозинка" required="" oninvalid="this.setCustomValidity('Внесете ја вашата лозинка')"
+                   oninput="this.setCustomValidity('')">
+        </p>
+        <hr/>
+        <button id="submit" type="submit" class="btn btn-lg btn-danger btn-block col-12 fw-bold" href="/myprofile">Најави се</button>
+    </form>
+    <a href="/register" class="btn btn-lg btn-danger btn-block text-white fw-bold col-12 border mt-2">Регистрирај се тука</a>
+</div>

@@ -1,0 +1,18 @@
+<header class="bg-danger">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 text-start">
+                <h1 class="text-white ms-3"><a href="./index.html" class="text-white" style="text-decoration:none;">ПрваПомош++</a></h1>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-2 mt-2 me-0 pe-0 text-end">
+                <a class="btn btn-block btn-light col-12 text-danger fw-bold me-2 rounded-pill" sec:authorize="isAuthenticated()" href="/myprofile">Мој Профил</a>
+                <a class="btn btn-block btn-light col-12 text-danger fw-bold me-2 rounded-pill" sec:authorize="!isAuthenticated()" href="/login">Најава</a>
+            </div>
+            <div class="col-2 mt-2 me-0 pe-0 text-end">
+                <a class="btn btn-block btn-light col-12 text-danger fw-bold me-2 rounded-pill" sec:authorize="isAuthenticated()" href="/logout">Одјави се</a>
+                <a class="btn btn-block btn-light col-12 text-danger fw-bold me-2 rounded-pill" sec:authorize="!isAuthenticated()" href="/register">Регистрација</a>
+            </div>
+        </div>
+    </div>
+</header>
