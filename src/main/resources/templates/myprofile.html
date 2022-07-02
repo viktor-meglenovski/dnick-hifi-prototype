@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="container border rounded mt-2 text-center pb-2">
-    <h1 class="mt-2" th:text="'Добре дојде назад @' + ${user.username}">Добре дојде назад КОРИСНИК!</h1>
+    <h1 class="mt-2" th:text="'Добре дојде назад @' + ${user.username}"></h1>
     <hr class="mb-1"/>
     <div class="row">
         <div class="col-6 text-center">
@@ -52,93 +52,13 @@
                 </tr>
                 </thead>
                 <tbody id="tbody-helper">
-                <tr class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img src="./images/asthma_attack.JPG"
-                                                                        class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle">Астматичен напад</td>
-                    <td class="col-3 p-0 text-center align-middle"><a href="./details_finished.html"
-                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
-                    </td>
-                    <td class="col-2 p-0 text-center align-middle"><a title="Завршено!">
-                        <button class="btn btn-success">&#10003;</button>
-                    </a></td>
-                </tr>
-                <tr class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img src="./images/bleeding.JPG"
-                                                                        class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle">Крварење</td>
-                    <td class="col-3 p-0 text-center align-middle"><a href="./details_unfinished.html"
-                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
-                    </td>
-                    <td class="col-2 p-0 text-center align-middle"><a title="Не е завршено!">
-                        <button class="btn btn-warning text-white">X</button>
-                    </a></td>
-                </tr>
-                <tr class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img src="./images/broken_bone.JPG"
-                                                                        class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle">Скршеници</td>
-                    <td class="col-3 p-0 text-center align-middle"><a href="./details_finished.html"
-                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
-                    </td>
-                    <td class="col-2 p-0 text-center align-middle"><a title="Завршено!">
-                        <button class="btn btn-success">&#10003;</button>
-                    </a></td>
-                </tr>
-                <tr class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img src="./images/burns.JPG"
-                                                                        class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle">Изгореници</td>
-                    <td class="col-3 p-0 text-center align-middle"><a href="./details_unfinished.html"
-                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
-                    </td>
-                    <td class="col-2 p-0 text-center align-middle"><a title="Не е завршено!">
-                        <button class="btn btn-warning text-white">X</button>
-                    </a></td>
-                </tr>
-                <tr class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img src="./images/choking.JPG"
-                                                                        class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle">Задушување</td>
-                    <td class="col-3 p-0 text-center align-middle"><a href="./details_unfinished.html"
-                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
-                    </td>
-                    <td class="col-2 p-0 text-center align-middle"><a title="Не е завршено!">
-                        <button class="btn btn-warning text-white">X</button>
-                    </a></td>
-                </tr>
-                <tr class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img src="./images/head_injury.JPG"
-                                                                        class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle">Повреди на глава</td>
-                    <td class="col-3 p-0 text-center align-middle"><a href="./details_unfinished.html"
-                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
-                    </td>
-                    <td class="col-2 p-0 text-center align-middle"><a title="Не е завршено!">
-                        <button class="btn btn-warning text-white">X</button>
-                    </a></td>
-                </tr>
-                <tr class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img src="./images/heart_attack.JPG"
-                                                                        class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle">Срцев удар</td>
-                    <td class="col-3 p-0 text-center align-middle"><a href="./details_unfinished.html"
-                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
-                    </td>
-                    <td class="col-2 p-0 text-center align-middle"><a title="Не е завршено!">
-                        <button class="btn btn-warning text-white">X</button>
-                    </a></td>
-                </tr>
-                <tr class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img src="./images/hypothermia.JPG"
-                                                                        class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle">Хипотермиа</td>
-                    <td class="col-3 p-0 text-center align-middle"><a href="./details_unfinished.html"
-                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
-                    </td>
-                    <td class="col-2 p-0 text-center align-middle"><a title="Не е завршено!">
-                        <button class="btn btn-warning text-white">X</button>
-                    </a></td>
+                <tr th:each="topic:${topics}" class="row align-items-center mb-1">
+                    <td class="col-4 p-0 text-center align-middle"><img th:src="${topic.topic.imageUrl}" class="small-image zoomInImages"/></td>
+                    <td class="col-3 p-0 text-left align-middle" th:text="${topic.topic.title}"></td>
+                    <td class="col-3 p-0 text-center align-middle"><a th:href="'/topic/details/'+${topic.topic.id}" class="btn btn-danger text-white btn-block col-10">Детали</a></td>
+
+                    <td th:if="${topic.completed}" class="col-2 p-0 text-center align-middle"><a title="Завршено!"><button class="btn btn-success">&#10003;</button></a></td>
+                    <td th:if="${!topic.completed}" class="col-2 p-0 text-center align-middle"><a title="Не е завршено!"><button class="btn btn-warning text-white">X</button></a></td>
                 </tr>
                 </tbody>
             </table>
@@ -203,7 +123,7 @@
                     </div>
                     <div class="col-4 pt-1" style="background-color: #ed081f;">
                         <h4>#1</h4>
-                        <h5>94/100</h5>
+                        <h5 th:text="${testResults.get(0).points+'/100'}">94/100</h5>
                     </div>
                     <div class="col-4">
                     </div>
@@ -211,7 +131,7 @@
                 <div class="row">
                     <div class="col-4 pt-1" style="background-color:#c71628">
                         <h4>#2</h4>
-                        <h5>83/100</h5>
+                        <h5 th:text="${testResults.get(1).points+'/100'}">83/100</h5>
                     </div>
                     <div class="col-4 " style="background-color: #ed081f;">
                     </div>
@@ -225,7 +145,7 @@
                     </div>
                     <div class="col-4 pt-1" style="background-color: #dc3545;">
                         <h4>#3</h4>
-                        <h5>67/100</h5>
+                        <h5 th:text="${testResults.get(2).points+'/100'}">67/100</h5>
                     </div>
                 </div>
             </div>

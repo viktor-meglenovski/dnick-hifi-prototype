@@ -21,8 +21,8 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public Topic saveTopic(String id, String title, String videoUrl, String description) {
-        Topic t=new Topic(id,title,videoUrl,description);
+    public Topic saveTopic(String id, String title, String imageUrl, String videoUrl, String description) {
+        Topic t=new Topic(id,title,imageUrl,videoUrl,description);
         topicRepository.save(t);
         return t;
     }
@@ -53,4 +53,32 @@ public class TopicServiceImpl implements TopicService {
             topicUserRepository.save(new TopicUser(user,t,false));
         }
     }
+
+    @Override
+    public List<TopicUser> findAllForUser(User user) {
+        return topicUserRepository.findAllByUser(user);
+    }
+
+    @Override
+    public TopicUser findTopicForUser(String topicId, User user) {
+        Topic t=getById(topicId);
+        return topicUserRepository.findByTopicAndUser(t,user);
+    }
+
+    @Override
+    public void markAsCompleted(String topicId, User user) {
+        Topic t=getById(topicId);
+        TopicUser tu=topicUserRepository.findByTopicAndUser(t,user);
+        tu.setCompleted(true);
+        topicUserRepository.save(tu);
+    }
+
+    @Override
+    public void markAsNotCompleted(String topicId, User user) {
+        Topic t=getById(topicId);
+        TopicUser tu=topicUserRepository.findByTopicAndUser(t,user);
+        tu.setCompleted(false);
+        topicUserRepository.save(tu);
+    }
+
 }

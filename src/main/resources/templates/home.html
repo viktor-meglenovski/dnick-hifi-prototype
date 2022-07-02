@@ -6,8 +6,11 @@
             <h4 style="text-align: justify; text-justify: inter-word;">Креирајте свој профил и продлабочете го вашето знаење поврзано со давање на прва помош!</h4>
         </div>
         <div class="col-6">
-            <a class="btn btn-danger btn-lg btn-block col-10 offset-1 mb-2" href="/login">Најава</a>
-            <a class="btn btn-danger btn-lg btn-block col-10 offset-1 mb-2" href="/register">Регистрација</a>
+            <a class="btn btn-danger btn-lg btn-block col-10 offset-1 mb-2" href="/login" sec:authorize="!isAuthenticated()">Најава</a>
+            <a class="btn btn-danger btn-lg btn-block col-10 offset-1 mb-2" href="/register" sec:authorize="!isAuthenticated()">Регистрација</a>
+
+            <a class="btn btn-danger btn-lg btn-block col-10 offset-1 mb-2" href="/myprofile" sec:authorize="isAuthenticated()">Мој Профил</a>
+            <a class="btn btn-danger btn-lg btn-block col-10 offset-1 mb-2" href="/logout" sec:authorize="isAuthenticated()">Одјави се</a>
         </div>
     </div>
     <hr/>

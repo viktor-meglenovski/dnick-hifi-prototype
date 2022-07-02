@@ -45,13 +45,13 @@ public class UserServiceImpl implements UserService {
         if(this.userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
         User user = new User(username,passwordEncoder.encode(password),name,surname,userRole);
-
+        userRepository.save(user);
         //todo: da se stavat site temi kako nezavrseni i da se vnesat 3 rezultati kako 0 poeni
         topicService.setAllTopicsAsNotCompletedForUser(user);
         testResultService.initResultsForUser(user);
 
 
-        return userRepository.save(user);
+        return user;
     }
 
     @Override

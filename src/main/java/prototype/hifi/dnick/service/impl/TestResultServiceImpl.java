@@ -6,6 +6,10 @@ import prototype.hifi.dnick.model.User;
 import prototype.hifi.dnick.repository.TestResultRepository;
 import prototype.hifi.dnick.service.TestResultService;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TestResultServiceImpl implements TestResultService {
     private final TestResultRepository testResultRepository;
@@ -24,5 +28,10 @@ public class TestResultServiceImpl implements TestResultService {
         for(int i=0;i<3;i++){
             testResultRepository.save(new TestResult(user,0.0));
         }
+    }
+
+    @Override
+    public List<TestResult> getTopThreeResultsForUser(User user) {
+        return testResultRepository.findAllByUser(user).stream().sorted(Comparator.comparing(TestResult::getPoints).reversed()).limit(3).collect(Collectors.toList());
     }
 }

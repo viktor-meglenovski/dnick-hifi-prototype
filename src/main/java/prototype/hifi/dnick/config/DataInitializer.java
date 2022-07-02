@@ -2,7 +2,9 @@ package prototype.hifi.dnick.config;
 
 import org.springframework.stereotype.Component;
 import prototype.hifi.dnick.model.Topic;
+import prototype.hifi.dnick.model.enumerations.Role;
 import prototype.hifi.dnick.repository.TopicRepository;
+import prototype.hifi.dnick.service.UserService;
 
 import javax.annotation.PostConstruct;
 
@@ -10,21 +12,34 @@ import javax.annotation.PostConstruct;
 public class DataInitializer {
 
     private final TopicRepository topicRepository;
+    private final UserService userService;
 
-    public DataInitializer(TopicRepository topicRepository) {
+    public DataInitializer(TopicRepository topicRepository, UserService userService) {
         this.topicRepository = topicRepository;
+        this.userService = userService;
     }
 
     @PostConstruct
     public void initData() {
-        Topic izgorenici=new Topic("Izgorenici","Изгореници","https://www.youtube.com/watch?v=r7clpp4eyY0","Фрактура на коска или скршеница на коска е медицинска состојба каде постои прекин во континуитетот на коската. Фрактурата може да биде резултат на дејството на јака сила или оптоварување врз коската, или резултат на дејството на мала сила доколку структурата на коската е ослабена од други медицински состојби како остеопороза, тумори, osteogenesis imperfecta (во овие случаи фрактурата се именува како патолошка фрактура).Болката е доминантен симптом. И покрај тоа што самото коскено ткиво не содржи ноцицептори, скршениците се болни заради неколку причини:\n" +
-                "\n" +
-                "Прекин во континуитетот на периостеумот со или без прекин на ендостеумот кои имаат ноцицептори.\n" +
-                "Отокот на околните меки ткива настанат од крварењето од оштетените периостални крвни садови прави болка поради притисок.\n" +
-                "Мускулните спазми кои тежнеат да ги задржат фрагментите на место.\n" +
-                "Деформитетот, принудната положба на делот од телото, патолошката подвижност и крцкањето на фрагментите при движење се исто така дел од клиничката слика.\n" +
-                "\n" +
-                "Оштетувањето на околните нерви или крвни садови, ’рбтениот мозок и нервните корени (кај фрактури на ’рбет), черепната содржина (кај фрактури на череп) можат да предизвикаат други специфични знаци и симптоми.");
+        Topic skrshenici=new Topic("Skrshenici","Скршеници","./images/broken_bone.JPG", "https://www.youtube.com/embed/bqJNshguoTY", "/pdf/скршеници.pdf");
+        Topic izgorenici=new Topic("Izgorenici","Изгореници", "./images/burns.JPG","https://www.youtube.com/embed/IOtnGl_9-qw", "/pdf/изгореници.pdf");
+        Topic krvarenje=new Topic("Krvarenje","Крварење", "./images/bleeding.JPG","https://www.youtube.com/embed/BYQzwqrEUlU","/pdf/крварење.pdf");
+        Topic srcevoBelodrobno=new Topic("SrcevoBelodrobnoOzivuvanje","Срцево Белодробно оживување","./images/heart_lungs.JPG","https://www.youtube.com/embed/hHyVQiWFXzg","/pdf/срцево-белодробно-оживување.pdf");
+        Topic zadusuvanje=new Topic("Zadushuvanje","Задушување","./images/choking.JPG","https://www.youtube.com/embed/6E9AXXRdkfE","/pdf/задушување.pdf");
+        Topic mozocenUdar=new Topic("MozocenUdar","Мозочен удар","./images/stroke.JPG","https://www.youtube.com/embed/PCNTMIcOMpE","/pdf/мозочен-удар.pdf");
+        Topic srcevUdar=new Topic("SrcevUdar","Срцев удар", "./images/heart_attack.JPG","https://www.youtube.com/embed/1qje-XlNowI","/pdf/срцев-удар.pdf");
+        Topic smrznuvanje=new Topic("Smrznuvanje","Смрзнување","./images/hypothermia.JPG","https://www.youtube.com/embed/qlNKCSC2s5w","/pdf/смрзнување.pdf");
+
+
+        topicRepository.save(krvarenje);
+        topicRepository.save(skrshenici);
+        topicRepository.save(zadusuvanje);
+        topicRepository.save(srcevoBelodrobno);
+        topicRepository.save(srcevUdar);
+        topicRepository.save(mozocenUdar);
         topicRepository.save(izgorenici);
+        topicRepository.save(smrznuvanje);
+
+        userService.register("test","test","test","test","test", Role.ROLE_USER);
     }
 }
