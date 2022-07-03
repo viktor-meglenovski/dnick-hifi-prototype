@@ -1,9 +1,5 @@
 <head>
-    <script src="./jquery-3.6.0/jquery-3.6.0.min.js"></script>
-    <script src="./datatables/datatables.js"></script>
-    <link rel="stylesheet" href="./datatables/datatables.css"/>
-    <link rel="stylesheet" href="./datatables/DataTables-1.11.5/css/dataTables.bootstrap.css"/>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
     <style>
         .small-image {
             height: 100px;
@@ -18,18 +14,21 @@
             display: none;
         }
 
-        .form-check-input:checked{
+        .form-check-input:checked {
             background-color: #dc3545;
-            border-color:rgb(220, 53, 69);
+            border-color: rgb(220, 53, 69);
         }
-        .form-check-input:focus{
-            border-color:#dc3545;
+
+        .form-check-input:focus {
+            border-color: #dc3545;
             box-shadow: 0 0 0 0.25rem rgb(220 53 69 / 25%);
         }
-        .form-switch .form-check-input:focus{
+
+        .form-switch .form-check-input:focus {
             background-image: url("./images/circle_red.png");
         }
-        .form-switch .form-check-input:checked{
+
+        .form-switch .form-check-input:checked {
             background-image: url("./images/circle_white.png");
         }
     </style>
@@ -40,149 +39,43 @@
     <hr class="mb-1"/>
     <div class="row">
         <div class="col-6 text-center">
-            <h2>Научи повеќе</h2>
-            <hr/>
-            <table class="container-fluid w-100 col-12 table p-0 table table-stripped" id="learn-table">
-                <thead>
-                <tr class="row align-items-center">
-                    <td class="col-4"></td>
-                    <td class="col-3"></td>
-                    <td class="col-3"></td>
-                    <td class="col-2"></td>
-                </tr>
-                </thead>
-                <tbody id="tbody-helper">
-                <tr th:each="topic:${topics}" class="row align-items-center mb-1">
-                    <td class="col-4 p-0 text-center align-middle"><img th:src="${topic.topic.imageUrl}" class="small-image zoomInImages"/></td>
-                    <td class="col-3 p-0 text-left align-middle" th:text="${topic.topic.title}"></td>
-                    <td class="col-3 p-0 text-center align-middle"><a th:href="'/topic/details/'+${topic.topic.id}" class="btn btn-danger text-white btn-block col-10">Детали</a></td>
-
-                    <td th:if="${topic.completed}" class="col-2 p-0 text-center align-middle"><a title="Завршено!"><button class="btn btn-success">&#10003;</button></a></td>
-                    <td th:if="${!topic.completed}" class="col-2 p-0 text-center align-middle"><a title="Не е завршено!"><button class="btn btn-warning text-white">X</button></a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-6">
-            <h2>Тестирај се</h2>
-            <hr/>
-            <h5 class="mb-3">Одбери на кои теми сакаш да го тестираш своето знаење</h5>
-            <div class="row col-10 ms-5 mb-1">
-                <div class="col-5 offset-1">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="asthma_attack">
-                        <label class="form-check-label col-12 d-flex justify-content-start" for="asthma_attack">Астматичен
-                            напад</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="bleeding">
-                        <label class="form-check-label col-12 d-flex justify-content-start"
-                               for="bleeding">Крварење</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="broken_bone">
-                        <label class="form-check-label col-12 d-flex justify-content-start"
-                               for="broken_bone">Скршеници</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="burns">
-                        <label class="form-check-label col-12 d-flex justify-content-start"
-                               for="burns">Изгореници</label>
-                    </div>
-                </div>
-                <div class="col-5 offset-1">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="choking">
-                        <label class="form-check-label col-12 d-flex justify-content-start"
-                               for="choking">Задушување</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="head_injury">
-                        <label class="form-check-label col-12 d-flex justify-content-start" for="head_injury">Повреди на
-                            глава</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="heart_attack">
-                        <label class="form-check-label col-12 d-flex justify-content-start" for="heart_attack">Срцев
-                            удар</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="hypothermia">
-                        <label class="form-check-label col-12 d-flex justify-content-start"
-                               for="hypothermia">Хипотермиа</label>
-                    </div>
-                </div>
-            </div>
-            <a href="./test.html" class="btn btn-danger btn-lg btn-block col-12 mt-2">Започни сo тестирање!</a>
+            <h2 class="mt-2" >Информации за твојот профил</h2>
             <hr class="mb-1"/>
-            <h2 class="text-center">Твои 3 најдобри резултати</h2>
-            <hr/>
-            <div class="row col-10 d-flex justify-content-end offset-1 text-white">
-                <div class="row">
-                    <div class="col-4">
-                    </div>
-                    <div class="col-4 pt-1" style="background-color: #ed081f;">
-                        <h4>#1</h4>
-                        <h5 th:text="${testResults.get(0).points+'/100'}">94/100</h5>
-                    </div>
-                    <div class="col-4">
-                    </div>
+            <div class="row text-start">
+                <div class="col-6">
+                    <h3 class="mt-4 mb-4">Име:</h3>
+                    <h3 class="mt-4 mb-4">Презиме:</h3>
+                    <h3 class="mt-4 mb-4">Направени тестови:</h3>
+                    <h3 class="mt-4 mb-4">Највисоки поени:</h3>
+                    <h3 class="mt-4 mb-4">Освоени беџови:</h3>
                 </div>
-                <div class="row">
-                    <div class="col-4 pt-1" style="background-color:#c71628">
-                        <h4>#2</h4>
-                        <h5 th:text="${testResults.get(1).points+'/100'}">83/100</h5>
-                    </div>
-                    <div class="col-4 " style="background-color: #ed081f;">
-                    </div>
-                    <div class="col-4">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4" style="background-color:#c71628">
-                    </div>
-                    <div class="col-4 " style="background-color: #ed081f;">
-                    </div>
-                    <div class="col-4 pt-1" style="background-color: #dc3545;">
-                        <h4>#3</h4>
-                        <h5 th:text="${testResults.get(2).points+'/100'}">67/100</h5>
-                    </div>
+                <div class="col-6">
+                    <h3 class="mt-4 mb-4" th:text="${user.name}"></h3>
+                    <h3 class="mt-4 mb-4" th:text="${user.surname}"></h3>
+                    <h3 class="mt-4 mb-4" th:text="${numberOfTests}"></h3>
+                    <h3 class="mt-4 mb-4" th:text="${highestScore}"></h3>
+                    <h3 class="mt-4 mb-4" th:text="${user.badges.size()}+'/'+${allBadges.size()}"></h3>
                 </div>
             </div>
+        </div>
+        <div class="col-6 text-center">
+            <h2 class="mt-2" >Опции</h2>
+            <hr class="mb-1"/>
+            <a href="/learn" class="btn btn-danger text-white btn-lg btn-block col-12 mt-5">Научи повеќе</a>
+            <a href="/test" class="btn btn-danger text-white btn-lg btn-block col-12 mt-5">Тестирај го своето знаење</a>
+            <a href="/results" class="btn btn-danger text-white btn-lg btn-block col-12 mt-5">Резултати и Беџови</a>
+            <a href="/logout" class="btn btn-danger text-white btn-lg btn-block col-12 mt-5">Одјави се</a>
         </div>
     </div>
 </div>
+</div>
 <script>
     $(document).ready(function () {
-        $("#learn-table").DataTable({
-            "columns": [
-                {"name": "image", "orderable": false},
-                {"name": "name", "orderable": false},
-                {"name": "details", "orderable": false},
-                {"name": "status", "orderable": false}
-            ],
-            "ordering": false,
-            "bLengthChange": false,
-            "searching": false,
-            "pageLength": 4,
-            "bInfo": false,
-            "language": {
-                "paginate": {
-                    "previous": "<<",
-                    "next": ">>"
-                }
-            }
+        $(".zoomInImages").on("mouseenter", function (e) {
+            $(this).animate({height: '+=10', width: '+=10'})
         });
-        $("#learn-table_paginate").addClass(["text-center", "col-12"]);
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $("#tbody-helper").on("mouseenter", ".zoomInImages", function (e) {
-            $(this).animate({height: '+=15', width: '+=15'})
-        });
-        $("#tbody-helper").on("mouseleave", ".zoomInImages", function (e) {
-            $(this).animate({height: '-=15', width: '-=15'});
+        $(".zoomInImages").on("mouseleave", function (e) {
+            $(this).animate({height: '-=10', width: '-=10'})
         });
     })
 </script>

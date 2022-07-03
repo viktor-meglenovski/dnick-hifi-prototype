@@ -9,4 +9,5 @@ public interface TestResultService {
     TestResult saveNewResult(User user, Double points);
     void initResultsForUser(User user);
     List<TestResult> getTopThreeResultsForUser(User user);
+    int getNumberOfTestsForUser(User user);
 }

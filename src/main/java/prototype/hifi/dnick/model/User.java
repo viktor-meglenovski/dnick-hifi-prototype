@@ -3,11 +3,14 @@ package prototype.hifi.dnick.model;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import prototype.hifi.dnick.model.enumerations.Badges;
 import prototype.hifi.dnick.model.enumerations.Role;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,6 +25,9 @@ public class User implements UserDetails {
     private String name;
 
     private String surname;
+
+    @ManyToMany
+    private List<Badge> badges;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
@@ -40,6 +46,7 @@ public class User implements UserDetails {
         this.name = name;
         this.surname = surname;
         this.role = role;
+        this.badges=new ArrayList<>();
     }
 
     @Override

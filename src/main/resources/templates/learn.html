@@ -1,0 +1,105 @@
+<head>
+
+    <style>
+        .small-image {
+            height: 100px;
+            border-radius: 15px;
+        }
+
+        td, tbody, table {
+            border: none;
+        }
+
+        thead {
+            display: none;
+        }
+
+        .form-check-input:checked {
+            background-color: #dc3545;
+            border-color: rgb(220, 53, 69);
+        }
+
+        .form-check-input:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.25rem rgb(220 53 69 / 25%);
+        }
+
+        .form-switch .form-check-input:focus {
+            background-image: url("./images/circle_red.png");
+        }
+
+        .form-switch .form-check-input:checked {
+            background-image: url("./images/circle_white.png");
+        }
+    </style>
+</head>
+<body>
+<div class="container border rounded mt-2 text-center pb-2">
+    <h1 class="mt-2" th:text="'Добре дојде назад @' + ${user.username}"></h1>
+    <hr class="mb-1"/>
+    <div class="row">
+        <h2>Научи повеќе</h2>
+        <hr/>
+        <div class="col-6 text-center">
+            <table class="container-fluid w-100 col-12 table p-0 table table-stripped" id="learn-table">
+                <tbody id="tbody-helper">
+                <tr th:each="topic:${topics.subList(0,4)}" class="row align-items-center mb-1">
+                    <td class="col-4 p-0 text-center align-middle"><img th:src="${topic.topic.imageUrl}"
+                                                                        class="small-image zoomInImages"/></td>
+                    <td class="col-3 p-0 text-left align-middle" th:text="${topic.topic.title}"></td>
+                    <td class="col-3 p-0 text-center align-middle"><a th:href="'/topic/details/'+${topic.topic.id}"
+                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
+                    </td>
+                    <td th:if="${topic.completed}" class="col-2 p-0 text-center align-middle"><a title="Завршено!">
+                        <button class="btn btn-success">&#10003;</button>
+                    </a></td>
+                    <td th:if="${!topic.completed}" class="col-2 p-0 text-center align-middle"><a
+                            title="Не е завршено!">
+                        <button class="btn btn-warning text-white">X</button>
+                    </a></td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="./test.html" class="btn btn-danger btn-lg btn-block col-12 mt-2">Започни сo тестирање!</a>
+        </div>
+        <div class="col-6 text-center">
+            <table class="container-fluid w-100 col-12 table p-0 table table-stripped" id="learn-table">
+                <tbody id="tbody-helper">
+                <tr th:each="topic:${topics.subList(4,8)}" class="row align-items-center mb-1">
+                    <td class="col-4 p-0 text-center align-middle"><img th:src="${topic.topic.imageUrl}"
+                                                                        class="small-image zoomInImages"/></td>
+                    <td class="col-3 p-0 text-left align-middle" th:text="${topic.topic.title}"></td>
+                    <td class="col-3 p-0 text-center align-middle"><a th:href="'/topic/details/'+${topic.topic.id}"
+                                                                      class="btn btn-danger text-white btn-block col-10">Детали</a>
+                    </td>
+                    <td th:if="${topic.completed}" class="col-2 p-0 text-center align-middle"><a title="Завршено!">
+                        <button class="btn btn-success">&#10003;</button>
+                    </a></td>
+                    <td th:if="${!topic.completed}" class="col-2 p-0 text-center align-middle"><a
+                            title="Не е завршено!">
+                        <button class="btn btn-warning text-white">X</button>
+                    </a></td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="/results" class="btn btn-danger text-white btn-lg btn-block col-12 mt-2">Резултати и Беџови</a>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".zoomInImages").on("mouseenter", function (e) {
+            $(this).animate({height: '+=10', width: '+=10'})
+        });
+        $(".zoomInImages").on("mouseleave", function (e) {
+            $(this).animate({height: '-=10', width: '-=10'})
+        });
+    })
+</script>
+<script>
+    $(function () {
+        $(document).tooltip();
+    });
+</script>
+</body>

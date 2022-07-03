@@ -1,8 +1,11 @@
 package prototype.hifi.dnick.config;
 
 import org.springframework.stereotype.Component;
+import prototype.hifi.dnick.model.Badge;
 import prototype.hifi.dnick.model.Topic;
+import prototype.hifi.dnick.model.enumerations.Badges;
 import prototype.hifi.dnick.model.enumerations.Role;
+import prototype.hifi.dnick.repository.BadgeRepository;
 import prototype.hifi.dnick.repository.TopicRepository;
 import prototype.hifi.dnick.service.UserService;
 
@@ -13,10 +16,12 @@ public class DataInitializer {
 
     private final TopicRepository topicRepository;
     private final UserService userService;
+    private final BadgeRepository badgeRepository;
 
-    public DataInitializer(TopicRepository topicRepository, UserService userService) {
+    public DataInitializer(TopicRepository topicRepository, UserService userService, BadgeRepository badgeRepository) {
         this.topicRepository = topicRepository;
         this.userService = userService;
+        this.badgeRepository = badgeRepository;
     }
 
     @PostConstruct
@@ -39,6 +44,20 @@ public class DataInitializer {
         topicRepository.save(mozocenUdar);
         topicRepository.save(izgorenici);
         topicRepository.save(smrznuvanje);
+
+
+        Badge tests1=new Badge(Badges.TESTS_1,"Направи 1 тест!");
+        Badge tests3=new Badge(Badges.TESTS_3,"Направи 3 тестови!");
+        Badge tests5=new Badge(Badges.TESTS_5,"Направи 5 тестови!");
+        Badge pointsOver90=new Badge(Badges.SCORE_OVER_90,"Освој над 90 поени!");
+        Badge points100=new Badge(Badges.SCORE_100,"Освој 100 поени!");
+
+        badgeRepository.save(tests1);
+        badgeRepository.save(tests3);
+        badgeRepository.save(tests5);
+        badgeRepository.save(pointsOver90);
+        badgeRepository.save(points100);
+
 
         userService.register("test","test","test","test","test", Role.ROLE_USER);
     }

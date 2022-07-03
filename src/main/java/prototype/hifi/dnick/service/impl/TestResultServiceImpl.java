@@ -34,4 +34,9 @@ public class TestResultServiceImpl implements TestResultService {
     public List<TestResult> getTopThreeResultsForUser(User user) {
         return testResultRepository.findAllByUser(user).stream().sorted(Comparator.comparing(TestResult::getPoints).reversed()).limit(3).collect(Collectors.toList());
     }
+
+    @Override
+    public int getNumberOfTestsForUser(User user) {
+        return testResultRepository.findAllByUser(user).stream().filter(x->x.getPoints()>0).collect(Collectors.toList()).size();
+    }
 }
