@@ -12,8 +12,8 @@ public class TestResult {
     private Long id;
     @ManyToOne
     private User user;
-    private Double points;
-    public TestResult(User user, Double points){
+    private int points;
+    public TestResult(User user, int points){
         this.user=user;
         this.points=points;
     }

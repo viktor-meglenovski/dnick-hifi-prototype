@@ -3,6 +3,7 @@ package prototype.hifi.dnick.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -11,24 +12,15 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String text;
-    @ManyToOne
-    private Topic topic;
 
-    //answers
-    private String a;
-    private String b;
-    private String c;
-    private String d;
+    @ElementCollection
+    private List<String> answers;
 
     private char correctAnswer;
 
-    public Question(String text, Topic topic, String a, String b, String c, String d, char correctAnswer) {
+    public Question(String text, List<String> answers, char correctAnswer) {
         this.text = text;
-        this.topic = topic;
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
+        this.answers=answers;
         this.correctAnswer = correctAnswer;
     }
 

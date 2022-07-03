@@ -32,12 +32,12 @@ public class TopicController {
     public String markAsCompleted(@PathVariable String id, Principal principal){
         User user=userService.findByUsername(principal.getName());
         topicService.markAsCompleted(id,user);
-        return "redirect:/myprofile";
+        return "redirect:/learn";
     }
     @GetMapping("/markNotCompleted/{id}")
     public String markAsNotCompleted(@PathVariable String id, Principal principal){
         User user=userService.findByUsername(principal.getName());
         topicService.markAsNotCompleted(id,user);
-        return "redirect:/myprofile";
+        return "redirect:/learn";
     }
 }

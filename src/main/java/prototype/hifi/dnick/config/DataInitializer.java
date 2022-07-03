@@ -1,15 +1,21 @@
 package prototype.hifi.dnick.config;
 
 import org.springframework.stereotype.Component;
-import prototype.hifi.dnick.model.Badge;
-import prototype.hifi.dnick.model.Topic;
+import prototype.hifi.dnick.model.*;
 import prototype.hifi.dnick.model.enumerations.Badges;
 import prototype.hifi.dnick.model.enumerations.Role;
 import prototype.hifi.dnick.repository.BadgeRepository;
+import prototype.hifi.dnick.repository.QuestionRepository;
 import prototype.hifi.dnick.repository.TopicRepository;
+import prototype.hifi.dnick.service.BadgeService;
+import prototype.hifi.dnick.service.TestResultService;
 import prototype.hifi.dnick.service.UserService;
 
 import javax.annotation.PostConstruct;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 @Component
 public class DataInitializer {
@@ -17,15 +23,21 @@ public class DataInitializer {
     private final TopicRepository topicRepository;
     private final UserService userService;
     private final BadgeRepository badgeRepository;
+    private final TestResultService testResultService;
+    private final BadgeService badgeService;
+    private final QuestionRepository questionRepository;
 
-    public DataInitializer(TopicRepository topicRepository, UserService userService, BadgeRepository badgeRepository) {
+    public DataInitializer(TopicRepository topicRepository, UserService userService, BadgeRepository badgeRepository, TestResultService testResultService, BadgeService badgeService, QuestionRepository questionRepository) {
         this.topicRepository = topicRepository;
         this.userService = userService;
         this.badgeRepository = badgeRepository;
+        this.testResultService = testResultService;
+        this.badgeService = badgeService;
+        this.questionRepository = questionRepository;
     }
 
     @PostConstruct
-    public void initData() {
+    public void initData() throws IOException {
         Topic skrshenici=new Topic("Skrshenici","Скршеници","./images/broken_bone.JPG", "https://www.youtube.com/embed/bqJNshguoTY", "/pdf/скршеници.pdf");
         Topic izgorenici=new Topic("Izgorenici","Изгореници", "./images/burns.JPG","https://www.youtube.com/embed/IOtnGl_9-qw", "/pdf/изгореници.pdf");
         Topic krvarenje=new Topic("Krvarenje","Крварење", "./images/bleeding.JPG","https://www.youtube.com/embed/BYQzwqrEUlU","/pdf/крварење.pdf");
@@ -59,6 +71,33 @@ public class DataInitializer {
         badgeRepository.save(points100);
 
 
-        userService.register("test","test","test","test","test", Role.ROLE_USER);
+        User test=userService.register("test","test","test","test","test", Role.ROLE_USER);
+
+        TestResult testResult1= testResultService.saveNewResult(test,92);
+        TestResult testResult2= testResultService.saveNewResult(test,100);
+        TestResult testResult3= testResultService.saveNewResult(test,15);
+        badgeService.checkForAll(testResult1);
+        badgeService.checkForAll(testResult2);
+        badgeService.checkForAll(testResult3);
+
+        loadQuestions();
+    }
+    private void loadQuestions() throws IOException {
+        File questions=new File(".\\src\\main\\resources\\static\\questions.txt");
+        BufferedReader reader=new BufferedReader(new FileReader(questions));
+        String line = reader.readLine();
+        while (line != null && line!="") {
+
+            String[] parts=line.split(";");
+            List<String> answers=new ArrayList<>();
+            for(int i=2;i<parts.length;i++){
+                answers.add(parts[i]);
+            }
+            questionRepository.save(new Question(parts[0],answers,parts[1].charAt(0)));
+
+            line = reader.readLine();
+        }
+        reader.close();
+
     }
 }

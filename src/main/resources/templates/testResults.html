@@ -1,0 +1,6 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <h1 th:text="'Освоивте '+${results.points}+' од 100 поени!'"></h1>
+    <h2 th:if="${results.points>80}">Браво!!!</h2>
+    <h2 th:if="${results.points<80 && results.points>50}">Скоро совршено! Продолжете така!</h2>
+    <h2 th:if="${results.points<50}">Загрејте го столчето малце повеќе! :(</h2>
+</div>

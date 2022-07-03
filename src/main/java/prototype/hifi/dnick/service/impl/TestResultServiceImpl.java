@@ -18,15 +18,16 @@ public class TestResultServiceImpl implements TestResultService {
         this.testResultRepository = testResultRepository;
     }
 
+
     @Override
-    public TestResult saveNewResult(User user, Double points) {
+    public TestResult saveNewResult(User user, int points) {
         return testResultRepository.save(new TestResult(user,points));
     }
 
     @Override
     public void initResultsForUser(User user) {
         for(int i=0;i<3;i++){
-            testResultRepository.save(new TestResult(user,0.0));
+            testResultRepository.save(new TestResult(user,0));
         }
     }
 

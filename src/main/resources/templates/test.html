@@ -1,50 +1,123 @@
-<div class="col-6">
-    <h2>Тестирај се</h2>
+<div class="container text-center">
+    <h1 class="mt-2">Тестирај го своето знаење</h1>
     <hr/>
-    <h5 class="mb-3">Одбери на кои теми сакаш да го тестираш своето знаење</h5>
-    <div class="row col-10 ms-5 mb-1">
-        <div class="col-5 offset-1">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="asthma_attack">
-                <label class="form-check-label col-12 d-flex justify-content-start" for="asthma_attack">Астматичен
-                    напад</label>
-            </div>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="bleeding">
-                <label class="form-check-label col-12 d-flex justify-content-start"
-                       for="bleeding">Крварење</label>
-            </div>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="broken_bone">
-                <label class="form-check-label col-12 d-flex justify-content-start"
-                       for="broken_bone">Скршеници</label>
-            </div>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="burns">
-                <label class="form-check-label col-12 d-flex justify-content-start"
-                       for="burns">Изгореници</label>
+    <div class="row">
+        <div class="col-6">
+            <div class="border text-start p-2" th:each="q, iStat:${questions.subList(0,4)}">
+                <h5 th:text="'Прашање #'+${iStat.count}"></h5>
+                <p class="mb-1 fw-bold" th:text="${q.text}">Текст на прашање?</p>
+                <label class="d-block mb-2" th:each="a:${q.answers}">
+                    <input type="radio" th:name="${q.id}" th:value="${a.charAt(0)}" th:text="${a}" class="me-1" oninvalid="this.setCustomValidity('Одговорете го ова прашање')">
+                </label>
             </div>
         </div>
-        <div class="col-5 offset-1">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="choking">
-                <label class="form-check-label col-12 d-flex justify-content-start"
-                       for="choking">Задушување</label>
-            </div>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="head_injury">
-                <label class="form-check-label col-12 d-flex justify-content-start" for="head_injury">Повреди на
-                    глава</label>
-            </div>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="heart_attack">
-                <label class="form-check-label col-12 d-flex justify-content-start" for="heart_attack">Срцев
-                    удар</label>
-            </div>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="hypothermia">
-                <label class="form-check-label col-12 d-flex justify-content-start"
-                       for="hypothermia">Хипотермиа</label>
+        <div class="col-6">
+            <div class="border text-start p-2" th:each="q, iStat:${questions.subList(4,8)}">
+                <h5 th:text="'Прашање #'+${iStat.count+4}"></h5>
+                <p class="mb-1 fw-bold" th:text="${q.text}">Текст на прашање?</p>
+                <label class="d-block mb-2" th:each="a:${q.answers}">
+                    <input type="radio" th:name="${q.id}" th:value="${a.charAt(0)}" th:text="${a}" class="me-1" oninvalid="this.setCustomValidity('Одговорете го ова прашање')">
+                </label>
             </div>
         </div>
     </div>
+    <hr/>
+    <div class="row mb-2">
+        <div class="col-6">
+            <button id="cancel" path="/myprofile" class="btn btn-warning text-white btn-lg btn-block col-12">Откажи</button>
+        </div>
+        <div class="col-6">
+            <button id="finish" class="btn btn-success text-white btn-lg btn-block col-12">Заврши</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#cancel").click(function(){
+            var link = $(this);
+            bootbox.confirm({
+                size:'large',
+                title: "<h2>Дали сте сигурни дека сакате да прекините со решавање на тестот?</h2>",
+                message:"<h4>Вашите досегашни одговори на овој тест НЕМА да бидат зачувани!</h4>",
+                buttons: {
+                    confirm: {
+                        label: 'Да',
+                        className: 'btn-danger'
+                    },
+                    cancel: {
+                        label: 'Не',
+                        className: 'btn-warning text-white'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        window.location.href = link.attr('path');
+                    }
+                }
+            });
+        });
+    })
+</script>
+<script>
+    $(document).ready(function(){
+        var answers=[]
+        $("#finish").click(function(){
+            $("input[type='radio']:checked").map(function(){
+                answers.push({id:$(this).attr("name"),answer:$(this).attr("value")});
+            });
+            if(answers.length<8){
+                bootbox.alert({
+                    size:"large",
+                    title:"",
+                    message:"<h2>Мора да ги одговорите сите прашања пред да го завршите тестот!</h2>",
+                    buttons: {
+                        ok: {
+                            label: 'Во ред',
+                            className: 'btn-success'
+                        },
+                    },
+                })
+            }else{
+                var modal = bootbox.dialog({
+                    size:'large',
+                    title: "<h3>Резултати од тестот</h3>",
+                    message: "<h3>Резултати од тестот</h3>",
+                    buttons: [
+                        {
+                            label: "Затвори",
+                            className: "btn btn-warning text-white pull-left",
+                            callback: function () {
+                                window.location.href="/myprofile";
+                            }
+                        },
+                        {
+                            label: "Резултати и Беџови",
+                            className: "btn btn-danger pull-left",
+                            callback: function () {
+                                window.location.href="/results";
+                            }
+                        }
+                    ],
+                    show: false,
+                    onEscape: function () {
+                        modal.modal("hide");
+                        window.location.href="/myprofile";
+                    }
+                });
+                modal.modal("show");
+                $.ajax({
+                    type : "POST",
+                    url : "/test",
+                    contentType: "application/json",
+                    data : JSON.stringify(answers),
+                    success : function(response) {
+                        $(".bootbox-body").html(response);
+                    },
+                    error : function(e) {
+                        console.log('Error: ' + e);
+                    }
+                });
+            }
+        });
+    })
+</script>
