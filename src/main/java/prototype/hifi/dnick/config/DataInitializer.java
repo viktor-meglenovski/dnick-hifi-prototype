@@ -9,26 +9,27 @@ import prototype.hifi.dnick.repository.QuestionRepository;
 import prototype.hifi.dnick.repository.TopicRepository;
 import prototype.hifi.dnick.service.BadgeService;
 import prototype.hifi.dnick.service.TestResultService;
+import prototype.hifi.dnick.service.TopicService;
 import prototype.hifi.dnick.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 @Component
 public class DataInitializer {
 
     private final TopicRepository topicRepository;
+    private final TopicService topicService;
     private final UserService userService;
     private final BadgeRepository badgeRepository;
     private final TestResultService testResultService;
     private final BadgeService badgeService;
     private final QuestionRepository questionRepository;
-
-    public DataInitializer(TopicRepository topicRepository, UserService userService, BadgeRepository badgeRepository, TestResultService testResultService, BadgeService badgeService, QuestionRepository questionRepository) {
+    public DataInitializer(TopicRepository topicRepository, TopicService topicService, UserService userService, BadgeRepository badgeRepository, TestResultService testResultService, BadgeService badgeService, QuestionRepository questionRepository) {
         this.topicRepository = topicRepository;
+        this.topicService = topicService;
         this.userService = userService;
         this.badgeRepository = badgeRepository;
         this.testResultService = testResultService;
@@ -71,10 +72,14 @@ public class DataInitializer {
         badgeRepository.save(points100);
 
 
-        User test=userService.register("test","test","test","test","test", Role.ROLE_USER);
+        User test=userService.register("ViktorM","test","test","Viktor","Meglenovski", Role.ROLE_USER);
+
+        topicService.markAsCompleted("Skrshenici",test);
+        topicService.markAsCompleted("SrcevUdar",test);
+        topicService.markAsCompleted("Krvarenje",test);
 
         TestResult testResult1= testResultService.saveNewResult(test,92);
-        TestResult testResult2= testResultService.saveNewResult(test,100);
+        TestResult testResult2= testResultService.saveNewResult(test,70);
         TestResult testResult3= testResultService.saveNewResult(test,15);
         badgeService.checkForAll(testResult1);
         badgeService.checkForAll(testResult2);

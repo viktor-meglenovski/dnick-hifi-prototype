@@ -62,6 +62,7 @@
     $(document).ready(function(){
         var answers=[]
         $("#finish").click(function(){
+            answers=[]
             $("input[type='radio']:checked").map(function(){
                 answers.push({id:$(this).attr("name"),answer:$(this).attr("value")});
             });
